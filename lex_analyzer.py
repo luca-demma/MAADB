@@ -1,6 +1,6 @@
 import constants
 import helpers
-import mysql_functions
+import populate_word_r_source
 
 # [sentiment][word][lex_resource_source]
 words = helpers.multi_dict(3, int)
@@ -25,7 +25,6 @@ for lex_folder in constants.LEXICAL_RESOURCES_FILES:
 						break
 				words[sentiment][word][lex_resource_source]
 
-# mysql_functions.mysql_connect()
 
-
+populate_word_r_source.populate(words)
 
