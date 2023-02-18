@@ -1,3 +1,7 @@
+import multiprocessing
+
+CPU_COUNT = multiprocessing.cpu_count()
+
 DATA_PATH = "./data/"
 
 LEXICAL_RESOURCES_PATH = DATA_PATH + "Risorse_lessicali/Archive_risorse_lessicali/"
