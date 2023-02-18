@@ -4,6 +4,9 @@ import re
 import emoji
 import string
 import contractions
+import spacy
+
+nlp = spacy.load("en_core_web_sm")
 
 # {
 # 	sentiment:
@@ -58,4 +61,18 @@ for tweet_path in constants.TWITTER_DATASETS_PATHS:
 		tweet = contractions.fix(tweet)
 		# remove punctuation
 		tweet = tweet.translate(str.maketrans('', '', string.punctuation))
+		# lemmatization
+		doc = nlp(tweet)
+		empty_list = []
+		for token in doc:
+			empty_list.append(token.lemma_)
+
+		tweet = ' '.join(map(str, empty_list))
+		# remove stop words
+		stopwords = nlp.Defaults.stop_words
+		lst = []
+		for token in tweet.split():
+			if token.lower() not in stopwords:  	# checking whether the word is not
+				lst.append(token)  					# present in the stopword list.
+		tweet = ' '.join(lst)
 		print(tweet)
