@@ -1,5 +1,6 @@
 import constants
 import helpers
+import mongo_populate_word_r_source
 import sql_populate_word_r_source
 
 # [sentiment][word][lex_resource_source]
@@ -26,5 +27,5 @@ for lex_folder in constants.LEXICAL_RESOURCES_FILES:
 				words[sentiment][word][lex_resource_source]
 
 
-sql_populate_word_r_source.populate(words)
-
+# sql_populate_word_r_source.populate(words)
+mongo_populate_word_r_source.populate(words)
