@@ -2,7 +2,7 @@ import mysql_functions
 from tqdm import tqdm
 
 
-def populate(tweets):
+def populate():
 
 	mysql_functions.mysql_connect()
 	tweet_index = 0

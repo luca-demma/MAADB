@@ -9,8 +9,8 @@ import json
 from pqdm.processes import pqdm
 import sql_populate_tweets_tables
 import pickle
-import os.path
 from os import path
+import mongo_populate_tweets
 
 nlp = spacy.load("en_core_web_sm")
 stopwords = nlp.Defaults.stop_words
@@ -100,5 +100,6 @@ else:
 	tweets_result = pickle.load(file)
 
 print("EXECUTING QUERIES")
-sql_populate_tweets_tables.populate(tweets_result)
+# sql_populate_tweets_tables.populate(tweets_result)
+mongo_populate_tweets.populate(tweets_result)
 
