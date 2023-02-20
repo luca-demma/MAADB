@@ -26,5 +26,5 @@ for lex_folder in constants.LEXICAL_RESOURCES_FILES:
 				words[sentiment][word][lex_resource_source]
 
 
-populate_word_r_source.populate(words)
+sql_populate_word_r_source.populate(words)
 

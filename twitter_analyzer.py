@@ -100,5 +100,5 @@ else:
 	tweets_result = pickle.load(file)
 
 print("EXECUTING QUERIES")
-populate_tweets_tables.populate(tweets_result)
+sql_populate_tweets_tables.populate(tweets_result)
 
