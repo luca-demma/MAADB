@@ -1,6 +1,6 @@
 import constants
 import helpers
-import populate_word_r_source
+import sql_populate_word_r_source
 
 # [sentiment][word][lex_resource_source]
 words = helpers.multi_dict(3, int)

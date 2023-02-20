@@ -32,6 +32,7 @@ def exec_query(query_string, commit=False, fetchOne=False):
 
 
 def insert_many(query_string, records):
+    cursor.execute("SET GLOBAL max_allowed_packet=10000000")
     try:
         cursor.executemany(query_string, records)
         connection.commit()

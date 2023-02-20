@@ -1,5 +1,6 @@
 import mysql_functions
 
+
 def populate(words):
 	records = []
 
