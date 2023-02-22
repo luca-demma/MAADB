@@ -23,6 +23,10 @@ def find_one(table, data):
 	return db[table].find_one(data)
 
 
+def aggregate(table, aggregation_steps):
+	return list(db[table].aggregate(aggregation_steps))
+
+
 def mongo_disconnect():
 	client.close()
 
