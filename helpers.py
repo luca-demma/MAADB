@@ -63,4 +63,6 @@ def word_cloud(count_dict, file_name, is_emoji=False):
 def make_histogram(data_dict):
     plt.xticks(rotation=90)
     plt.bar(data_dict.keys(), data_dict.values(), color='g')
-    plt.show()
+    plt.tight_layout()
+    plt.savefig('./data/output_perc_histogram.png')
+    plt.close()
