@@ -62,3 +62,7 @@ for sentiment in constants.LEXICAL_RESOURCES_FILES:
 					print("n_shared_words: %s" % (str(n_shared_words)))
 					print("n_lex_words: %s" % (str(n_lex_words)))
 					print("n_twitter_words: %s\n" % (str(n_twitter_words)))
+
+
+mongo_functions.mongo_disconnect()
+
