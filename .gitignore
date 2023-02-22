@@ -346,5 +346,8 @@ fabric.properties
 
 data/
 
+*.ttf
+*.otf
+
 
 

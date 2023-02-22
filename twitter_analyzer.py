@@ -11,6 +11,10 @@ import sql_populate_tweets_tables
 import pickle
 from os import path
 import mongo_populate_tweets
+import emot
+import pandas as pd
+
+emot_obj = emot.core.emot()
 
 nlp = spacy.load("en_core_web_sm")
 stopwords = nlp.Defaults.stop_words
@@ -53,6 +57,10 @@ def analyze_sentiment(tweet_path):
 		# removing emojis already processed
 		for e in t_tmp['emojis']:
 			tweet = tweet.replace(e, '')
+		# extracting emoticons list
+		t_tmp['emoticons'] = pd.Series(emot_obj.emoticons(tweet)['value'], dtype=pd.StringDtype()).drop_duplicates().tolist()
+		for emo in t_tmp['emoticons']:
+			tweet = tweet.replace(emo, '')
 		# to_lower_case
 		tweet = tweet.lower()
 		# expanding contractions
@@ -95,11 +103,15 @@ if not (path.exists('./data/tweets_analyzed.pickle')):
 	file = open('./data/tweets_analyzed.pickle', 'wb')
 	pickle.dump(tweets_result, file)
 else:
-	print("READING_FROM_FILE")
+	print("USING PICKLE")
 	file = open('./data/tweets_analyzed.pickle', 'rb')
 	tweets_result = pickle.load(file)
 
-print("EXECUTING QUERIES")
-# sql_populate_tweets_tables.populate(tweets_result)
+print("EXECUTING DB")
+
+print("INSERTING IN MySQL")
+sql_populate_tweets_tables.populate(tweets_result)
+
+print("INSERTING IN MONGO")
 mongo_populate_tweets.populate(tweets_result)
 
