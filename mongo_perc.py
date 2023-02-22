@@ -2,6 +2,8 @@ import mongo_functions
 import constants
 import helpers
 
+perc = {}
+
 mongo_functions.mongo_connect()
 
 for sentiment in constants.LEXICAL_RESOURCES_FILES:
@@ -63,6 +65,19 @@ for sentiment in constants.LEXICAL_RESOURCES_FILES:
 					print("n_lex_words: %s" % (str(n_lex_words)))
 					print("n_twitter_words: %s\n" % (str(n_twitter_words)))
 
+					perc_presence_lex_res = n_shared_words / n_lex_words
+					perc_presence_twitter = n_shared_words / n_twitter_words
+
+					print("perc_presence_lex_res: %s" % (str(perc_presence_lex_res)))
+					print("perc_presence_twitter: %s" % (str(perc_presence_twitter)))
+					print("-----------------------")
+
+					perc[sentiment + "_" + source] = int(perc_presence_lex_res * 100)
+
 
 mongo_functions.mongo_disconnect()
+
+helpers.make_histogram(perc)
+
+
 

@@ -58,3 +58,9 @@ def word_cloud(count_dict, file_name, is_emoji=False):
 
     plt.savefig('./data/output_wordclouds/' + file_name + ".png")
     plt.close()
+
+
+def make_histogram(data_dict):
+    plt.xticks(rotation=90)
+    plt.bar(data_dict.keys(), data_dict.values(), color='g')
+    plt.show()

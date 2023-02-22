@@ -1,7 +1,10 @@
 import mysql_functions
 import constants
+import helpers
 
 mysql_functions.mysql_connect()
+
+perc = {}
 
 for sentiment in constants.LEXICAL_RESOURCES_FILES:
 	# calc perc solo per i sentiment di twitter dataset
@@ -67,5 +70,9 @@ for sentiment in constants.LEXICAL_RESOURCES_FILES:
 					print("perc_presence_twitter: %s"%(str(perc_presence_twitter)))
 					print("-----------------------")
 
+					perc[sentiment + "_" + source] = int(perc_presence_lex_res * 100)
+
 
 mysql_functions.close_connection()
+
+helpers.make_histogram(perc)
