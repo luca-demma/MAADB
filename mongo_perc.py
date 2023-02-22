@@ -29,8 +29,11 @@ for sentiment in constants.LEXICAL_RESOURCES_FILES:
 
 					# n_shared_words
 					# temp collection con le distinct words di tweet
+					mongo_functions.drop_collection('tempCollection1')
+					mongo_functions.drop_collection('tempCollection2')
+
 					mongo_functions.aggregate('tweet', [
-						{"$match": {"sentiment": "anger"}},
+						{"$match": {"sentiment": sentiment}},
 						{"$project": {"keys": {"$objectToArray": "$word_count"}}},
 						{"$unwind": "$keys"},
 						{"$group": {"_id": "$keys.k"}},
@@ -38,14 +41,10 @@ for sentiment in constants.LEXICAL_RESOURCES_FILES:
 						{"$out": "tempCollection1"}
 					])
 					mongo_functions.aggregate('lex_resources_words', [
-						{"$match": {"sentiment": "anger", "source": "EmoSN"}},
+						{"$match": {"sentiment": sentiment, "source": source}},
 						{"$project": {"_id": 0, "word": "$word"}},
 						{"$out": "tempCollection2"}
 					])
-
-
-					mongo_functions.drop_collection('tempCollection1')
-					mongo_functions.drop_collection('tempCollection2')
 
 					n_shared_words = mongo_functions.aggregate('tempCollection1', [
 						{"$lookup": {"from": "tempCollection2", "localField": "word", "foreignField": "word",
@@ -53,7 +52,7 @@ for sentiment in constants.LEXICAL_RESOURCES_FILES:
 						{"$unwind": "$joined_docs"},
 						{"$count": "total_count"}
 					])
-					n_shared_words = n_shared_words['total_count']
+					n_shared_words = n_shared_words[0]['total_count']
 
 					mongo_functions.drop_collection('tempCollection1')
 					mongo_functions.drop_collection('tempCollection2')
