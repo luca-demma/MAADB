@@ -36,3 +36,7 @@ def word_count(str):
 
     return counts
 
+
+def count_file_lines(file_path):
+    return sum(1 for line in open(file_path))
+

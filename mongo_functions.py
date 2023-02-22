@@ -19,5 +19,10 @@ def insert_many(table, data):
 	return db[table].insert_many(data)
 
 
+def find_one(table, data):
+	return db[table].find_one(data)
+
+
 def mongo_disconnect():
 	client.close()
+
