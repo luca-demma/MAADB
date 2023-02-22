@@ -18,13 +18,15 @@ def mysql_connect():
         print(e)
 
 
-def exec_query(query_string, commit=False, fetchOne=False):
+def exec_query(query_string, commit=False, fetchOne=False, fetchAll=False):
     try:
         res = cursor.execute(query_string)
         if commit:
             connection.commit()
         if fetchOne:
             res = cursor.fetchone()
+        if fetchAll:
+            res = cursor.fetchall()
         # print(res)
         return res
     except Error as e:
