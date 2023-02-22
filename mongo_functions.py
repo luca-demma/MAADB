@@ -27,6 +27,10 @@ def aggregate(table, aggregation_steps):
 	return list(db[table].aggregate(aggregation_steps))
 
 
+def drop_collection(table):
+	db[table].drop()
+
+
 def mongo_disconnect():
 	client.close()
 
