@@ -9,9 +9,7 @@ time_start = time.time()
 
 for sentiment in constants.TWITTER_SENTIMENTS:
 
-
-
-	print("FINDING NEW WORS: " + sentiment)
+	print("FINDING NEW WORDS: " + sentiment)
 
 	mongo_functions.drop_collection('tmp_lex')
 	mongo_functions.drop_collection('tmp_tweet')
@@ -43,8 +41,6 @@ for sentiment in constants.TWITTER_SENTIMENTS:
 		{"$project": {"word": "$word", "count": "$count", "sentiment": sentiment}},
 		{"$merge": {"into": "new_lex_resource"}}
 	])
-
-
 
 	mongo_functions.drop_collection('tmp_lex')
 	mongo_functions.drop_collection('tmp_tweet')
