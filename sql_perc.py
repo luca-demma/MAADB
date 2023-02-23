@@ -1,8 +1,11 @@
 import mysql_functions
 import constants
 import helpers
+import time
 
 mysql_functions.mysql_connect()
+
+time_start = time.time()
 
 perc = {}
 
@@ -70,8 +73,12 @@ for sentiment in constants.LEXICAL_RESOURCES_FILES:
 					print("perc_presence_twitter: %s"%(str(perc_presence_twitter)))
 					print("-----------------------")
 
-					perc[sentiment + "_" + source] = int(perc_presence_lex_res * 100)
+					perc[sentiment + "_" + source] = int(perc_presence_twitter * 100)
 
+
+time_end = time.time()
+time_lapsed = time_end - time_start
+print("TIME SQL PERC " + str(time_lapsed))
 
 mysql_functions.close_connection()
 

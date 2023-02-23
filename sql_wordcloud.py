@@ -1,9 +1,12 @@
 import mysql_functions
 import constants
 import helpers
+import time
 
 
 mysql_functions.mysql_connect()
+
+time_start = time.time()
 
 # Wordcount WORDS
 for sentiment in constants.TWITTER_SENTIMENTS:
@@ -68,5 +71,9 @@ for sentiment in constants.TWITTER_SENTIMENTS:
 	emoticon_count = dict((x, int(y)) for x, y in emoticon_count)
 
 	helpers.word_cloud(emoticon_count, sentiment + "_emoticons")
+
+time_end = time.time()
+time_lapsed = time_end - time_start
+print("TIME SQL WORDCLOUDS " + str(time_lapsed))
 
 mysql_functions.close_connection()

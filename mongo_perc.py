@@ -1,10 +1,14 @@
 import mongo_functions
 import constants
 import helpers
+import time
+
 
 perc = {}
 
 mongo_functions.mongo_connect()
+
+time_start = time.time()
 
 for sentiment in constants.LEXICAL_RESOURCES_FILES:
 
@@ -74,6 +78,10 @@ for sentiment in constants.LEXICAL_RESOURCES_FILES:
 
 					perc[sentiment + "_" + source] = int(perc_presence_lex_res * 100)
 
+
+time_end = time.time()
+time_lapsed = time_end - time_start
+print("TIME MONGO PERC " + str(time_lapsed))
 
 mongo_functions.mongo_disconnect()
 
