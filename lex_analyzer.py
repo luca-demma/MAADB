@@ -28,5 +28,5 @@ for lex_folder in constants.LEXICAL_RESOURCES_FILES:
 
 
 print("EXECUTING QUERIES")
-# sql_populate_word_r_source.populate(words)
+sql_populate_word_r_source.populate(words)
 mongo_populate_word_r_source.populate(words)

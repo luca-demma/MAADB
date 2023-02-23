@@ -1,10 +1,13 @@
 import mysql_functions
+import time
 
 
 def populate(words):
 	records = []
 
 	mysql_functions.mysql_connect()
+
+	time_start = time.time()
 
 	for sentiment in words:
 		for word in words[sentiment]:
@@ -17,5 +20,9 @@ def populate(words):
 	print(records)
 	populate_WORD_R_SOURCE_query = "INSERT INTO WORD_R_SOURCE (WORD, SOURCE_ID) VALUES (%s , %s);"
 	mysql_functions.insert_many(populate_WORD_R_SOURCE_query, records)
+
+	time_end = time.time()
+	time_lapsed = time_end - time_start
+	print("TIME SQL POPULATE WORD_SOURCE " + str(time_lapsed))
 
 	mysql_functions.close_connection()

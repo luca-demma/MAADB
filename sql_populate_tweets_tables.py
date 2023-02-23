@@ -1,11 +1,14 @@
 import mysql_functions
 from tqdm import tqdm
+import time
 
 
 def populate(tweets):
 
 	mysql_functions.mysql_connect()
 	tweet_index = 0
+
+	time_start = time.time()
 
 	for sentiment in tqdm(tweets):
 		tweets_records = []
@@ -52,5 +55,9 @@ def populate(tweets):
 
 		populate_WORD_TWEET_query = "INSERT INTO WORD_TWEET (WORD, TWEET_ID, WORD_COUNT) VALUES (%s , %s, %s);"
 		mysql_functions.insert_many(populate_WORD_TWEET_query, words_records)
+
+	time_end = time.time()
+	time_lapsed = time_end - time_start
+	print("TIME SQL POPULATE TWEET " + str(time_lapsed))
 
 	mysql_functions.close_connection()
